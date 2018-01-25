@@ -41,6 +41,19 @@ $(document).ready(function() {
 
   stickySideBar();
 
+  // Sticky sidebar
+  var rotatetext = function() {
+    var show =$('#span1');
+   
+    if (show) {
+      // fix
+      show.cycleText();
+    } 
+  };
+
+  rotatetext();
+  
+
   $(window).resize(function() {
     stickySideBar();
   });

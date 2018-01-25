@@ -1,0 +1,25 @@
+{% assign author = page.author | default: page.authors[0] | default: site.author %}
+{% assign author = site.data.authors[author] | default: author %}
+
+{% if author.avatar %}
+<div class="author__avatar">
+  {% if author.avatar contains "://" %}
+    {% assign author_src = author.avatar %}
+  {% else %}
+    {% assign author_src = author.avatar | absolute_url %}
+  {% endif %}
+
+  {% if author.home %}
+    {% if author.home contains "://" %}
+      {% assign author_link = author.home %}
+    {% else %}
+      {% assign author_link = author.home | absolute_url %}
+    {% endif %}
+    <a href="{{ author_link }}">
+      <img src="{{ author_src }}" alt="{{ author.name }}" itemprop="image">
+    </a>
+  {% else %}
+    <img src="{{ author_src }}"  class="align-left" alt="{{ author.name }}" itemprop="image">
+  {% endif %}
+</div>
+{% endif %}

@@ -1,0 +1,125 @@
+---
+layout: single
+title:  "DTMF & SIM900"
+date:   2018-01-10 17:10:45 +0100
+categories: iot
+tags: dtmf sim900 iot 
+author_profile: true
+---
+
+Seguro que  os habéis preguntado alguna vez como hacen las centralitas para saber que teclas pulsamos cuando llamamos para hacer una reclamación a la operadora movil de turno y nos sale la famosa grabación "si usted esta hasta las narices pulse 1, si esta hasta las pelotas pulse 2.." y un largo etc..
+
+Se trata de una llamada de VOZ y no de datos, en la llamada solo se va a transmitir voz, ahí esta la clave,  utilizando la frecuencia de la voz se  emite un pulso para cada tecla pulsada con una determinada frecuencia, de este modo al otro lado de la llamada la máquina interpreta ese pulso utilizando la frecuencia más alta y baja del mismo  para saber que tecla has pulsado. 
+
+El sistema de marcación por tonos, también llamado sistema multifrecuencial o DTMF (Dual-Tone Multi-Frequency) es usado para la señalización de telecomunicaciones sobre líneas telefónicas analógicas. La versión de DTMF utilizada en los teléfonos de teclado es conocida como Touch-Tone.
+
+Estas son las frecuencias utilizadas segun el estandar:
+
+![My helpful screenshot]({{ "/assets/img/keyboard_phone_dtmf.jpg" | absolute_url }})
+
+<strong>El metodo 'estandar'</strong>
+
+Cuando se necesita identificar las teclas pulsadas durante una llamada lo que se hace habitualmente es utilizar integrados como el MT8870 los cuales interpretan el pulso y tienen una serie de salidas que se interpreta como una tabla de verdad, aqui os pongo el pinout del integrado  y su tabla de verdad.
+
+![My helpful screenshot]({{ "/assets/img/table.png" | absolute_url }}){: .align-left}
+
+![My helpful screenshot]({{ "/assets/img/mt-8870-pin-diagram.jpg" | absolute_url }}){: .align-full}
+
+En definitiva dependiendo del pulso recibido el MT8870 activa las salidas digitales (0/1) Q1-Q4 de este modo podemos determinar si se produjo la pulsación de alguna tecla, en el mercado hay placas ya ensambladas listas para su uso, simplemente conectamos la entrada de audio lo alimentamos e interpretamos las salidas del terminal con un microcontrolador.
+
+![My helpful screenshot]({{ "/assets/img/815ropdq7pl_sx355_.jpg" | absolute_url }})
+
+<strong>El método fácil del SIM900</strong>
+
+
+Ahora llegan las buenas noticias, si teneis la suerte de tener un SIM900, podemos detectar el pulso de llamada directamente desde el controlador GSM mediante comandos AT. 
+
+En realidad se trata del comando DDET que es propio del SIM900 , cuando se activa este comando ,el SIM900 empieza a tratar de identificar los pulsos.
+
+Cuando detecta que se ha pulsado una tecla aparece sobre el terminal el mensaje +DTMF:KEY siendo KEY la tecla pulsada. 
+
+Podéis consultar el juego de comandos AT del ´SIM900´ y ahi podeis ver documentado al detalle cada comando AT. Si no os funciona verificar la versión de vuestro SIM900 con el comando AT+CMGR, en mi caso:
+
+{% highlight c %}
+AT+CGMR
+Revision:1137B05SIM900M64_ST_ENHANCE
+{% endhighlight %}
+
+Para enviar los comandos AT tendréis que conectaros a la UART del SIM900 por el puerto serie, os dejo la descripción de los comandos que he usado y su función:
+
+{% highlight c %}
+ATS0=1 // Comando para que descuelgue automaticamente al primer tono
+AT+CLDTMF=50,"F",50,2 //Comando para enviar el pulso, en este caso la tecla F, al telefono del otro lado (se escucha un pitido en el telefono)
+AT+DDET=1,1000,0,0 //Activamos la escucha de comandos DTMF, si pulsamos una tecla aparecera el msg +DTMF correspondiente
+ATH // Colgar llamada en curso
+{% endhighlight %}
+
+Aqui dejo el log de las pruebas que he realizado en mi casa, en las pruebas que realice capturó la pulsación de la tecla en un 80% de las ocasiones.
+
+{% highlight c %}
+RDY
+
++CFUN: 1
+
++CPIN: READY
+
+Call Ready
+
+*PSNWID: "214","03", "Orange", 0, "Orange", 0
+
+DST: 0
+
+*PSNWID: "214","03", "Orange", 0, "Orange", 0
+
++CTZV: +4
+
+DST: 0
+ATS0=1
+OK
+
++CRING: VOICE
+AT+CLDTMF=50,"F",50,2
+OK
+AT+DDET=1,1000,0,0
+OK
+
++DTMF:1
+
++DTMF:2
+
++DTMF:3
+
++DTMF:4
+ATA
+ERROR
+ATH
+OK
++DTMF:4=1,1000,0,00,2"Orange", 0, "Orange", 0
+OK
+AT+CGMR?imcom.ee/documents/?dir=SIM900
++CME ERROR: 3
+AT+CM
+ERROR
+AT+CGMR
+Revision:1137B05SIM900M64_ST_ENHANCE
+{% endhighlight %}
+
+
+<strong>SIM900 vs SIM900A</strong>
+
+Aprovecho para recalcar que existen dos modelos el SIM900 && SIM900A., 
+
+El SIM900 es quadband y puede trabajar en las bandas 850,900,1800,1900 Mhz.<br/>
+El SIM900A es dual band y solo soporta las bandas 900/ 1800 MHz. 
+
+{:.notice--danger}
+El SIM900A no te funcionará en España, esta bloqueado para mercados Asiáticos, para hacerlo funcionar en España  hay que realizar una actualización de  firmware, mientras que el SIM900 funciona en todo el mundo.
+
+Aquí os dejo un mapa bastante ilustrativo de las bandas GSM utilizadas.
+
+![My helpful screenshot]({{ "/assets/img/gsm-map-worldtimezone.gif" | absolute_url }})
+
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/

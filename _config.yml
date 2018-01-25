@@ -102,6 +102,13 @@ author:
   youtube          : # "https://youtube.com/c/MichaelRoseDesign"
 
 
+
+
+#head_scripts:
+#  - https://code.jquery.com/jquery-3.2.1.min.js
+#footer_scripts:
+#  - /assets/js/your-custom-footer-script.js
+  
 # Reading Files
 include:
   - .htaccess
