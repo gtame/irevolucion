@@ -195,7 +195,6 @@ whitelist:
   - jekyll-feed
   - jemoji
 
-
 # Archives
 #  Type
 #  - GitHub Pages compatible archive pages built with Liquid ~> type: liquid (default)
@@ -229,6 +228,8 @@ tag_archive:
 # - http://jch.penibelst.de/
 compress_html:
   clippings: all
+  blanklines: true
+  endings: all
   ignore:
     envs: development
 

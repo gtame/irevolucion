@@ -1,19 +1,13 @@
 ---
 layout: single
-permalink: /about/
+permalink: /contratame/
 excerpt: "Minimal Mistakes is a flexible two-column Jekyll theme."
 last_modified_at: 2017-12-28T13:52:20-05:00
 ---
 
  {% include author-profile-photo.html %}<h2>Yo soy <span id="span1">SQL Database Administrador|Angular2 Ninja|ASP.NET enginer|IoT Designer| SAP Analyst | Bussiness inteligence</span>.</h2>
 
-<!--
-<div class="circle fadeInDown animated">  
-<i class="fa fa-cogs fa-2x circle"></i>
-</div>
--->
  
-
 <form action="https://formspree.io/gabrieltame@yahoo.es"  method="POST">
       <input type="email" name="email" placeholder="Email">
       <input type="hidden" name="_next" value="http://localhost:4000/" />
@@ -23,9 +17,16 @@ last_modified_at: 2017-12-28T13:52:20-05:00
     <input type="submit" value="Send" class="btn btn--success btn--small">
 </form>
 
-### Habilidades - Skills
+###  Hablemos
+---
+Actualmente trabajo por cuenta ajena, pero afortunadamente mi horario me permite abordar proyectos que considere atractivos fuera de mi horario laboral. 
 
-| Name                                        | Description                                           |
+Si tienes algun proyecto interesante y quieres compartirlo conmigo, estaré encantado de aportar mi punto de vista y darte un presupuesto sin compromiso alguno.
+
+### Habilidades - Skills
+---
+
+| Name                                        | Expertice                                          |
 | ------------------------------------------- | ----------------------------------------------------- |
 | C# - ASP.NET MVC | {% include starts.html starts=3 %} |
 | C# - Winforms // WPF | {% include starts.html starts=3 %} |

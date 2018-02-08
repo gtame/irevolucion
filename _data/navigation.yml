@@ -1,10 +1,8 @@
 # main links
 main:
   - title: "Articulos"
-    url: /arduino/
+    url: /articulos/
   - title: "Sobre mi"
-    url: /about/
+    url: /aboutme/
   - title: "Contratame"
     url: /contratame/
-  - title: "Sitemap"
-    url: /sitemap/

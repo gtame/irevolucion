@@ -1,6 +1,6 @@
 ---
 layout: archive
-permalink: /arduino
+permalink: /post_filter
 title: ""
 author_profile: true
 filterby: "iot"
