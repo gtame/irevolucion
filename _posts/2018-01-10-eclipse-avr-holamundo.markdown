@@ -64,14 +64,17 @@ Vemos que hay dos tipos de proyectos relativos a AVR diferentes:
 
  Seleccionamos el tipo de proyecto AVR Cross Target Application, lo llamamos HolaAVR, vemos que en el arbol de proyectos nos aparece un proyecto vacio,  Seleccionamos el nodo del proyecto, boton derecho , del menu emergente escogemos <strong>New > Source File</strong> Le indicamos como nombre main.c.  Y escribimos el codigo más simple posible 
 
-{% highlight c linenos %}
+
+{% capture _code %}
+{% highlight c++ linenos %}
 #include <avr/io.h>
 #include <util/delay.h>
  
 int main( void )
 {
 }
-{% endhighlight %}
+{% endhighlight %}{% endcapture %}{% include fixlinenos.html %}{{ _code }}
+ 
 
 Ahora seleccionamos el proyecto pulamos boton derecho del ratón y del menu seleccionamos Build para compilar la aplicacion, vemos que se ha generado dentro del proyecto una carpeta Binaries, que contiene el archivo HolaAVR.elf . Este rrrrrr
 
@@ -82,6 +85,7 @@ Ahora creamos del mismo modo la libreria estatica, pero en este caso seleccionan
 Añadimos un metodo a la clase tanto en la cabecera como en la implementacion.
 
 <strong>Cabecera:</strong>
+{% capture _code %}
 {% highlight c++ linenos %}
 /*
  * HolaClass.h
@@ -101,10 +105,11 @@ public:
 };
  
 #endif /* HOLACLASS_H_ */
-{% endhighlight %}
+{% endhighlight %}{% endcapture %}{% include fixlinenos.html %}{{ _code }}
 
 
 <strong>Implementación:</strong>
+{% capture _code %}
 {% highlight c++ linenos %}
 /*
  * HolaClass.cpp
@@ -121,7 +126,7 @@ void HolaClass::HolaEclipseAVR()
 {
     //Implementacion aqui
 }
-{% endhighlight %}
+{% endhighlight %}{% endcapture %}{% include fixlinenos.html %}{{ _code }}
 
 Ahora compilamos la libreria. Veremos que dentro de la carpeta Debug del proyecto se crea el archivo libHolaLib.a. 
 Este archivo es la libreria que vamos a referenciar desde nuestro proyecto de aplicacion, para ello seleccionamos el proyecto HolaAVR, boton derecho y selecionamos Propiedades. 
@@ -145,7 +150,12 @@ Con esto le hemos dicho al compilador de C que vamos a referenciar cabeceras del
 Ahora editamos el archivo main.c, lo primero que vamos a hacer es cambiarlo de nombre a main.cpp, este paso es importante ya que si la extensión es .c el compilador que se lanza es el de C y no el de C++ y nos dará error de compilación cuando incorporemos la clase a nuestro programa.
 Ahora modificamos el archivo main.cpp de tal modo:
 
+
+
+
+{% capture _code %}
 {% highlight c++ linenos %}
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include <HolaClass.h>
@@ -156,7 +166,8 @@ int main( void )
     HolaClass miClase;
     miClase.HolaEclipseAVR();
 }
-{% endhighlight %}
+{% endhighlight %}{% endcapture %}{% include fixlinenos.html %}{{ _code }}
+
 
 
 Vemos que al instanciar la clase el editor nos propne los metodos a utilizar en la clase:

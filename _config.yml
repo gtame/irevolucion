@@ -185,8 +185,9 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
-  - jemoji
+  - jemoji 
 
+  
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
@@ -228,11 +229,15 @@ tag_archive:
 # - http://jch.penibelst.de/
 compress_html:
   clippings: all
-  blanklines: true
-  endings: all
+  comments: true
+#  No descomentar endings porque sino no formatea bien {% highlight c++ linenos %}
+#  endings: all
   ignore:
-    envs: development
-
+    envs: [development]
+  blanklines: false
+  profile: false
+  startings: [html, head, body]
+ 
 
 # Defaults
 defaults:

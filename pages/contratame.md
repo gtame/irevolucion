@@ -6,15 +6,20 @@ last_modified_at: 2017-12-28T13:52:20-05:00
 ---
 
  {% include author-profile-photo.html %}<h2>Yo soy <span id="span1">SQL Database Administrador|Angular2 Ninja|ASP.NET enginer|IoT Designer| SAP Analyst | Bussiness inteligence</span>.</h2>
-
- 
-<form action="https://formspree.io/gabrieltame@yahoo.es"  method="POST">
-      <input type="email" name="email" placeholder="Email">
-      <input type="hidden" name="_next" value="http://localhost:4000/" />
-      <input type="hidden" name="_subject" value="New submission!" />
-      <input type="hidden" name="_format" value="plain" />
-      <textarea name="message" rows="5" placeholder="Tu mensaje"></textarea>
-    <input type="submit" value="Send" class="btn btn--success btn--small">
+ <div id="loadingdialog" class="white-popup mfp-hide">
+    <i class="fas fa-spinner fa-pulse"></i>&nbsp;Enviando...<br/>
+</div>
+ <div id="errordialog" class="white-popup mfp-hide">
+    <i class="fas fa-exclamation-circle" aria-hidden="true"></i>&nbsp;Ocurrio un error inesperado!! :(<br/>
+</div>
+ <div id="dialog" class="white-popup mfp-hide">
+    <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Gracias por ponerse en contacto<br/>
+</div>
+<form id="contactform">
+      <input type="input" name="nombre" placeholder="Nombre"  required="true">
+      <input type="email" name="email" placeholder="Email"  required="true">
+      <textarea name="message" rows="5" placeholder="Tu mensaje" required="true"></textarea>
+    <input type="submit" id="submitmsg" value="Enviar" class="btn btn--success btn--small">
 </form>
 
 ###  Hablemos

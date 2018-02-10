@@ -10,6 +10,113 @@ $(document).ready(function() {
     didResize = false;
 
   bumpIt();
+ 
+
+  
+//funcion para convertir un formulario en un objeto json.
+function toJSONString( form ) {
+  var obj = {};
+  var elements = form.querySelectorAll( "input, select, textarea" );
+  for( var i = 0; i < elements.length; ++i ) {
+      var element = elements[i];
+      var name = element.name.replace("-","");
+      var value = element.value; 
+      if( name ) {
+          obj[ name ] = value;
+      }
+  }
+
+  return JSON.stringify( obj );
+}
+
+function showError()
+{
+  $.magnificPopup.close();
+
+  $.magnificPopup.open({
+    items: {
+        src: '#errordialog',
+        type: 'inline'
+    }
+  }); 
+
+  // Cierra el popup en 3 seg
+  setTimeout("$.magnificPopup.close()",3000);
+}
+
+
+  $('#contactform').on('submit',function(e){
+
+    e.preventDefault();
+
+    //valida -> validateform(inputscontact)
+
+    if (true)
+    {
+      
+      var maildata=JSON.parse(toJSONString(this));
+      //Llamamos api rest. 
+      var urlAjax =  "../mail.php?nombre=" + encodeURI(maildata.nombre) + 
+      "&mail="+ encodeURI(maildata.email) + 
+      "&msj=" + encodeURI(maildata.message);
+      
+      
+       //crear nuevos registro via ajax
+       $.ajax({
+          type: "GET",
+          url: urlAjax,
+          beforeSend: function() {
+              $.magnificPopup.open({
+                    items: {
+                        src: '#loadingdialog',
+                        type: 'inline'
+                    }
+                  }); 
+           },
+          success: function(data) { 
+              
+
+              if (data.status='success')
+              {
+                $.magnificPopup.close();
+                  $.magnificPopup.open({
+                    items: {
+                        src: '#dialog',
+                        type: 'inline'
+                    }
+                  }); 
+              
+                  // Cierra el popup en 3 seg
+                  setTimeout("$.magnificPopup.close()",3000);
+                  //Clear form
+                  $("#contactform").trigger('reset');
+                  //$("#first-name").focus();            
+              }
+              else
+              {
+                showError();
+              }
+
+          },
+          error: function(data) { 
+              showError();
+           },
+          dataType: 'json'
+          });
+      //Si ok
+
+
+    } 
+
+    return false;
+ 
+
+ 
+
+
+  });
+
+
 
   $(window).resize(function() {
     didResize = true;
