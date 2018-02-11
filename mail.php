@@ -17,18 +17,16 @@ $subject_preferences = array(
 	"line-break-chars" => "\r\n"
 );
 
- $from_name='no-reply@irevolucion.es';
-
-  // Mail header
-  $header = "Content-type: text/html; charset=".$encoding." \r\n";
-  $header .= "From: ".$from_name." <".$from_name."> \r\n";
-  $header .= "MIME-Version: 1.0 \r\n";
-  $header .= "Content-Transfer-Encoding: 8bit \r\n";
-  $header .= "Date: ".date("r (T)")." \r\n";
-  $header .= iconv_mime_encode("Subject", $titulo, $subject_preferences);
+$from_name='no-reply@irevolucion.es';
 
 
-if (@mail($a_quien, $titulo, $mensaje,$header))
+$headers   = array();
+$headers[] = "MIME-Version: 1.0";
+$headers[] = "Content-type: text/plain; charset=utf-8";
+$headers[] = "From:".$from_name;
+$headers[] = "X-Mailer: PHP/".phpversion();
+
+if (@mail($a_quien, $titulo, $mensaje,implode("\r\n",$headers),"-f ". $from_name))
 	$data['status'] = 'success';
 else
 	$data['status'] = 'error';

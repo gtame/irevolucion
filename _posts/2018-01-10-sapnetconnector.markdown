@@ -21,7 +21,8 @@ Para ello vamos al directorio de instalación de SAP Connector en mi caso C:\Pro
 Ahora configuramos el App.config o Web.config en función del tipo de proyecto que estemos. Añadimos la entrada SAP.Middleware.Connector en el configSections y su correspondiente entrada definiendo los destinations de los diferentes sistemas sap a los que nos queremos conectar.
 
 Ejemplo app.config:
-{% highlight xml linenos %}
+{% capture _code %}
+{% highlight c++ linenos %}
 <?xml version="1.0"?>
 <configuration>
    
@@ -58,7 +59,7 @@ Ejemplo app.config:
   </runtime>
      
   </configuration>
-{% endhighlight %}
+{% endhighlight %}{% endcapture %}{% include fixlinenos.html %}{{ _code }}
 
 
 Logicamente tendriamos que sustituir las variables apropiadas para cada destination,  si nos vamos a SAP Logon y editamos la entrada podemos visualizar los detalles de las conexiones que tenemos configuradas.
@@ -101,7 +102,8 @@ Para probar el conector he creado un programa de consola muy básico para compro
 
 Ahora que ya hemos comprobado con que parametros debemos llamar a la función, vamos a hacer lo mismo desde nuestro codigo .Net utilizando la API de SAPNetConnector
 
-{% highlight xml linenos %}
+{% capture _code %}
+{% highlight c++ linenos %}
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -150,8 +152,7 @@ namespace SAPConnectionTest
         }
     }
 }
-{% endhighlight %}
-
+{% endhighlight %}{% endcapture %}{% include fixlinenos.html %}{{ _code }}
 
 
 <strong>Algunos apuntes</strong>

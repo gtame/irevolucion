@@ -13,7 +13,7 @@ title                    : "Irevolucion"
 title_separator          : "-"
 name                     : "Gabriel Tame"
 description              : "Coding"
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : http://irevolucion.com # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -74,7 +74,7 @@ author:
     La motivación para crear este blog es compartir experiencias, ideas y proyectos y de este modo aportar mi granito de arena a la comunidad.<br/><br/>
     Espero que encuentres algo interesante, que te pueda ayudar. Continuemos aprendiendo, mejorando y compartiendo.<br/>
   email  : # optional
-  uri    : "http://your-site.com"
+  uri    : "http://irevolucion.com"
   location         : "Zaragoza (España)"
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
@@ -186,6 +186,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jemoji 
+  - jekyll-archives
 
   
 # mimic GitHub Pages with --safe
@@ -207,22 +208,24 @@ whitelist:
 #  - <base_path/categories/my-awesome-category/index.html ~> path: /categories/
 #  - <base_path/my-awesome-category/index.html ~> path: /
 category_archive:
-  type: liquid
+#  type: liquid
+  type: jekyll-archives
   path: /categories/
 tag_archive:
-  type: liquid
+  type: jekyll-archives
+#  type: liquid
   path: /tags/
 # https://github.com/jekyll/jekyll-archives
-# jekyll-archives:
-#   enabled:
-#     - categories
-#     - tags
-#   layouts:
-#     category: archive-taxonomy
-#     tag: archive-taxonomy
-#   permalinks:
-#     category: /categories/:name/
-#     tag: /tags/:name/
+jekyll-archives:
+   enabled:
+     - categories
+     - tags
+   layouts:
+     category: archive-taxonomy
+     tag: archive-taxonomy
+   permalinks:
+     category: /categories/:name/
+     tag: /tags/:name/
 
 
 # HTML Compression
